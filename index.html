@@ -8,38 +8,42 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Noto+Sans+TC:wght@500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
 <style>
-/* Layout: one centered arcade-cabinet column: header, game screen, touch pad, key legend. Single dark look by choice. */
+/* One column: a warm candy-shop frame around the playfield. */
 :root{
-  --night:#16132b; --panel:#221d3f; --ink:#f4efff; --muted:#a9a1cc; --gold:#ffc94a; --line:#3d3570;
-  --display:"Fredoka","Noto Sans TC",system-ui,sans-serif;
-  --body:"Noto Sans TC",system-ui,sans-serif;
-  color-scheme:dark;
+  --paper:#fff6ea; --ink:#5c3a32; --muted:#8d6558; --berry:#e25d6a; --gold:#e7a23a; --line:#f0d3b8; --panel:#fffaf4;
+  --display:"Zen Maru Gothic",system-ui,sans-serif;
+  --body:"Zen Maru Gothic",system-ui,sans-serif;
+  color-scheme:light;
 }
-body{background:var(--night);color:var(--ink);font-family:var(--body);
+body{background:
+  radial-gradient(900px 380px at 50% -8%, #ffe3b0 0%, transparent 62%),
+  linear-gradient(180deg, #fff3df 0%, #ffe4ea 100%);
+  color:var(--ink);font-family:var(--body);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 28px}
 .wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
 .brand{display:flex;flex-direction:column;gap:2px;min-width:0}
-h1{font-family:var(--display);font-weight:900;font-size:clamp(1.5rem,4vw,2.1rem);margin:0;letter-spacing:.04em;text-wrap:balance}
-h1 span{color:var(--gold)}
-.sub{color:var(--muted);margin:0;font-size:.92rem}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,4vw,2.1rem);margin:0;letter-spacing:.02em;text-wrap:balance;display:flex;align-items:center;gap:8px}
+h1 span{color:var(--berry)}
+.mark{width:46px;height:46px;flex:none}
+.sub{color:var(--muted);margin:0;font-size:.95rem}
 .tools{display:flex;gap:8px}
-.tool{font:700 .9rem var(--body);color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 14px;cursor:pointer}
-.tool:hover{border-color:var(--gold)}
-.tool:focus-visible,.pad button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.screen{border-radius:14px;overflow:hidden;border:3px solid var(--line);box-shadow:0 14px 40px rgba(0,0,0,.45);background:#000}
+.tool{font:700 .9rem var(--body);color:var(--ink);background:var(--panel);border:2px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.tool:hover{border-color:var(--berry)}
+.tool:focus-visible,.pad button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
+.screen{border-radius:22px;overflow:hidden;border:6px solid #fff;box-shadow:0 18px 40px rgba(120,70,50,.14),0 0 0 2px var(--line);background:#c5e8f8}
 canvas{display:block;width:100%;height:auto;aspect-ratio:800/480;max-width:100%;touch-action:none;cursor:pointer}
 .pad{display:none;justify-content:space-between;align-items:center;gap:12px;user-select:none;-webkit-user-select:none;touch-action:none}
 .pad .grp{display:flex;gap:12px}
-.pad button{width:76px;height:76px;border-radius:50%;border:2px solid var(--line);background:var(--panel);color:var(--ink);font:900 1.15rem var(--body);touch-action:none;-webkit-tap-highlight-color:transparent}
-.pad button.on{background:var(--line)}
-.pad .jump{background:var(--gold);color:var(--night);border-color:var(--gold)}
-.pad .jump.on{filter:brightness(.85)}
+.pad button{width:76px;height:76px;border-radius:50%;border:2px solid var(--line);background:var(--panel);color:var(--ink);font:700 1.15rem var(--body);touch-action:none;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 0 #f0d3b8}
+.pad button.on{background:#ffe7c8}
+.pad .jump{background:var(--berry);color:#fff;border-color:#c44756;box-shadow:0 4px 0 #c44756}
+.pad .jump.on{filter:brightness(.95)}
 @media (pointer:coarse){.pad{display:flex}.keys{display:none}}
 .keys{display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--muted);font-size:.9rem;margin:0;padding:0;list-style:none}
-kbd{font-family:var(--display);font-weight:700;background:var(--panel);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 7px;color:var(--ink);font-size:.82rem}
+kbd{font-family:var(--display);font-weight:700;background:var(--panel);border:1px solid var(--line);border-bottom-width:3px;border-radius:8px;padding:1px 7px;color:var(--ink);font-size:.82rem}
 </style>
 </head>
 <body>
@@ -47,8 +51,8 @@ kbd{font-family:var(--display);font-weight:700;background:var(--panel);border:1p
 <div class="wrap">
   <header>
     <div class="brand">
-      <h1>麻糬<span>跳跳</span></h1>
-      <p class="sub">六個關卡：踩扁敵人、頂開星星箱收集道具、抵達終點旗就過關</p>
+      <h1><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="22" ry="18" fill="#fff8f2" stroke="#e4c2b0" stroke-width="2.5"/><ellipse cx="18" cy="54" rx="7" ry="4" fill="#f0b89a"/><ellipse cx="46" cy="54" rx="7" ry="4" fill="#f0b89a"/><ellipse cx="16" cy="43" rx="3.4" ry="2" fill="#ffb3c0"/><ellipse cx="48" cy="43" rx="3.4" ry="2" fill="#ffb3c0"/><circle cx="24" cy="38" r="3.3" fill="#5c3a32"/><circle cx="40" cy="38" r="3.3" fill="#5c3a32"/><circle cx="22.8" cy="36.6" r="1.2" fill="#fff"/><circle cx="38.8" cy="36.6" r="1.2" fill="#fff"/><path d="M27 45q5 5 10 0" fill="none" stroke="#e07a86" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="44" cy="16" rx="11" ry="5" fill="#7dbe72" transform="rotate(-32 44 16)"/></svg>麻糬<span>跳跳</span></h1>
+      <p class="sub">六個關卡，收集點心，走到終點旗就過關</p>
     </div>
     <div class="tools">
       <button class="tool" id="btnPause" type="button">暫停</button>
@@ -86,8 +90,8 @@ const ctx = cv.getContext('2d');
 const dpr = Math.min(2, window.devicePixelRatio || 1);
 cv.width = VW * dpr; cv.height = VH * dpr;
 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-const FONT = '"Fredoka","Noto Sans TC",system-ui,sans-serif';
-const CJK = '"Noto Sans TC",system-ui,sans-serif';
+const FONT = '"Zen Maru Gothic",system-ui,sans-serif';
+const CJK = FONT;
 
 /* ---------------- Level builder ---------------- */
 function makeLevel(w, build) {
@@ -840,6 +844,50 @@ function drawFlag(camX) {
   ctx.fillStyle = '#ff7a8a'; ctx.beginPath(); ctx.ellipse(hx + 64, base - 74, 8, 11, 0, 0, Math.PI * 2); ctx.fill();
 }
 
+function paintMochi(spec) {
+  const face = spec.face >= 0 ? 1 : -1;
+  const ex = face * 2.2;
+  const body = spec.star > 0 ? `hsl(${(S.frame * 12) % 360},78%,86%)` : (spec.power ? '#fff3cc' : '#fff8f2');
+  if (spec.wing) {
+    const fl = spec.onGround ? 0.08 : Math.sin(S.frame * 0.6) * 0.4;
+    ctx.fillStyle = '#e7f6ff'; ctx.strokeStyle = '#8ec4e2'; ctx.lineWidth = 1.4;
+    [-1, 1].forEach(sd => { ctx.save(); ctx.translate(sd * 12, -18); ctx.rotate(sd * (0.5 + fl)); ctx.beginPath(); ctx.ellipse(sd * 7, 0, 9, 5, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.restore(); });
+  }
+  ctx.fillStyle = '#f0b89a';
+  ctx.beginPath(); ctx.ellipse(-6.5, -1.2, 4.6, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6.5, -1.2, 4.6, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = body; ctx.strokeStyle = '#e4c2b0'; ctx.lineWidth = 1.3;
+  const wave = spec.wave ? Math.sin(S.frame * 0.14) : 0;
+  [-1, 1].forEach(sd => {
+    ctx.save(); ctx.translate(sd * 11, -15); ctx.rotate(sd < 0 ? (spec.wave ? -1.05 + wave * 0.7 : 0.45) : -0.4);
+    ctx.beginPath(); ctx.ellipse(sd * 4.6, 1, 5, 3.1, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.restore();
+  });
+  ctx.fillStyle = body; ctx.strokeStyle = '#e4c2b0'; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.ellipse(0, -16, 15.5, 14.2, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,.9)';
+  ctx.beginPath(); ctx.ellipse(-5.2, -22, 4.4, 2.3, -0.5, 0, Math.PI * 2); ctx.fill();
+  ctx.save(); ctx.translate(1.5, -30); ctx.rotate(-0.55 + Math.sin(S.frame * 0.08) * 0.07);
+  ctx.fillStyle = spec.power ? '#f0b429' : '#7dbe72';
+  ctx.beginPath(); ctx.ellipse(7, 0, 8, 3.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = spec.power ? '#c48a16' : '#4f8f4c'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(1, 0); ctx.lineTo(13, 0); ctx.stroke();
+  ctx.restore();
+  ctx.fillStyle = 'rgba(255,160,176,.72)';
+  ctx.beginPath(); ctx.ellipse(ex - 10.5, -12.5, 3, 1.8, 0, 0, Math.PI * 2); ctx.ellipse(ex + 10.5, -12.5, 3, 1.8, 0, 0, Math.PI * 2); ctx.fill();
+  if (spec.dead) {
+    ctx.strokeStyle = '#5c3a32'; ctx.lineWidth = 1.7; ctx.lineCap = 'round';
+    [ex - 5, ex + 5].forEach(x => { ctx.beginPath(); ctx.moveTo(x - 2.6, -20); ctx.lineTo(x + 2.6, -14.5); ctx.moveTo(x + 2.6, -20); ctx.lineTo(x - 2.6, -14.5); ctx.stroke(); });
+  } else {
+    ctx.fillStyle = '#5c3a32';
+    ctx.beginPath(); ctx.arc(ex - 5, -16.6, 3.05, 0, Math.PI * 2); ctx.arc(ex + 5, -16.6, 3.05, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(ex - 6.1, -17.7, 1.2, 0, Math.PI * 2); ctx.arc(ex + 3.9, -17.7, 1.2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(ex - 4, -15.6, 0.5, 0, Math.PI * 2); ctx.arc(ex + 6, -15.6, 0.5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#e07a86'; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(ex, -12.6, 3.3, 0.22 * Math.PI, 0.78 * Math.PI); ctx.stroke();
+  }
+}
+
 function drawPlayer(camX) {
   const p = player;
   if (p.inv > 0 && Math.floor(p.inv / 4) % 2 && S.state === 'play') return;
@@ -856,30 +904,8 @@ function drawPlayer(camX) {
     gl.addColorStop(0, 'rgba(255,214,110,.55)'); gl.addColorStop(1, 'rgba(255,214,110,0)');
     ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(0, -14, 30, 0, Math.PI * 2); ctx.fill();
   }
-  ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.beginPath(); ctx.ellipse(0, 0, 13, 3, 0, 0, Math.PI * 2); ctx.fill();
-  if (p.wing) {
-    const fl = p.onGround ? 0 : Math.sin(S.frame * 0.6) * 0.4;
-    ctx.fillStyle = '#dff1ff'; ctx.strokeStyle = '#3a2f4f'; ctx.lineWidth = 1.5;
-    [-1, 1].forEach(sd => { ctx.save(); ctx.translate(sd * 13, -18); ctx.rotate(sd * (0.5 + fl)); ctx.beginPath(); ctx.ellipse(sd * 6, 0, 8, 4.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.restore(); });
-  }
-  ctx.fillStyle = p.star > 0 ? `hsl(${(S.frame * 12) % 360},90%,82%)` : '#fffaf2'; ctx.strokeStyle = '#3a2f4f'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.ellipse(0, -14, 15, 14, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-  // leaf
-  ctx.save(); ctx.translate(2, -28); ctx.rotate(-0.5 + Math.sin(S.frame * 0.1) * 0.08);
-  ctx.fillStyle = p.power ? '#ffc94a' : '#6cc46a'; ctx.beginPath(); ctx.ellipse(6, 0, 7, 3.5, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.restore();
-  const ex = p.face * 3;
-  ctx.fillStyle = '#2b2340';
-  if (p.dead) {
-    ctx.strokeStyle = '#2b2340'; ctx.lineWidth = 2;
-    [ex - 5, ex + 5].forEach(x => { ctx.beginPath(); ctx.moveTo(x - 2.5, -19); ctx.lineTo(x + 2.5, -14); ctx.moveTo(x + 2.5, -19); ctx.lineTo(x - 2.5, -14); ctx.stroke(); });
-  } else {
-    ctx.beginPath(); ctx.ellipse(ex - 5, -16, 2.2, 3.4, 0, 0, Math.PI * 2); ctx.ellipse(ex + 5, -16, 2.2, 3.4, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#fff'; ctx.fillRect(ex - 5.5, -18.5, 1.2, 1.2); ctx.fillRect(ex + 4.5, -18.5, 1.2, 1.2);
-  }
-  ctx.fillStyle = 'rgba(255,130,150,.75)';
-  ctx.beginPath(); ctx.ellipse(ex - 10, -10, 3, 2, 0, 0, Math.PI * 2); ctx.ellipse(ex + 10, -10, 3, 2, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = '#2b2340'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(ex, -11, 2.5, 0.2, Math.PI - 0.2); ctx.stroke();
+  ctx.fillStyle = 'rgba(120,70,40,.16)'; ctx.beginPath(); ctx.ellipse(0, 1, 12, 3, 0, 0, Math.PI * 2); ctx.fill();
+  paintMochi({ dead: p.dead, power: p.power, star: p.star, wing: p.wing, face: p.face, onGround: p.onGround, wave: !p.onGround && !p.dead });
   ctx.restore();
 }
 
@@ -1017,17 +1043,17 @@ function drawWorld() {
 
 function pad(n, l) { return String(n).padStart(l, '0'); }
 function drawHUD() {
-  ctx.fillStyle = 'rgba(22,19,43,.62)'; rr(10, 10, VW - 20, 40, 12); ctx.fill();
+  ctx.fillStyle = 'rgba(92,58,50,.55)'; rr(10, 10, VW - 20, 40, 12); ctx.fill();
   ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
   const y = 31;
-  const label = (txt, x) => { ctx.font = `700 13px ${CJK}`; ctx.fillStyle = '#a9a1cc'; ctx.fillText(txt, x, y); return x + ctx.measureText(txt).width + 8; };
-  const val = (txt, x) => { ctx.font = `700 19px ${FONT}`; ctx.fillStyle = '#f4efff'; ctx.fillText(txt, x, y + 1); return x + ctx.measureText(txt).width; };
+  const label = (txt, x) => { ctx.font = `700 13px ${CJK}`; ctx.fillStyle = '#ffe4c8'; ctx.fillText(txt, x, y); return x + ctx.measureText(txt).width + 8; };
+  const val = (txt, x) => { ctx.font = `700 19px ${FONT}`; ctx.fillStyle = '#fffaf4'; ctx.fillText(txt, x, y + 1); return x + ctx.measureText(txt).width; };
   let x = label('分數', 26); val(pad(S.score, 6), x);
   x = 200; ctx.fillStyle = '#ffd94f'; ctx.beginPath(); ctx.ellipse(x + 6, y, 6, 8, 0, 0, Math.PI * 2); ctx.fill(); val('× ' + pad(S.coins, 2), x + 18);
   x = label('關卡', 300); val(`${S.li + 1}`, x); ctx.font = `700 13px ${CJK}`; ctx.fillStyle = '#ffc94a'; ctx.fillText(LEVELS[S.li].name, x + 20, y);
-  x = label('時間', 560); ctx.font = `700 19px ${FONT}`; ctx.fillStyle = S.time <= 50 ? '#ff8f8f' : '#f4efff'; ctx.fillText(pad(S.time, 3), x, y + 1);
-  ctx.fillStyle = '#fffaf2'; ctx.beginPath(); ctx.ellipse(690, y + 1, 9, 8, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#2b2340'; ctx.fillRect(686, y - 1, 2, 3); ctx.fillRect(692, y - 1, 2, 3);
+  x = label('時間', 560); ctx.font = `700 19px ${FONT}`; ctx.fillStyle = S.time <= 50 ? '#ffd0d4' : '#fffaf4'; ctx.fillText(pad(S.time, 3), x, y + 1);
+  ctx.fillStyle = '#fff8f2'; ctx.beginPath(); ctx.ellipse(690, y + 1, 9, 8, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#5c3a32'; ctx.beginPath(); ctx.arc(687, y - 1, 1.3, 0, Math.PI * 2); ctx.arc(693, y - 1, 1.3, 0, Math.PI * 2); ctx.fill();
   val('× ' + Math.max(0, S.lives), 706);
   const st = [];
   if (player.power) st.push(['護體', '#ffc94a']);
@@ -1036,37 +1062,70 @@ function drawHUD() {
   let sx = 18; ctx.font = `700 13px ${CJK}`;
   for (const [txt, col] of st) {
     const w = ctx.measureText(txt).width + 18;
-    ctx.fillStyle = 'rgba(22,19,43,.62)'; rr(sx, 56, w, 22, 11); ctx.fill();
+    ctx.fillStyle = 'rgba(92,58,50,.55)'; rr(sx, 56, w, 22, 11); ctx.fill();
     ctx.fillStyle = col; ctx.fillText(txt, sx + 9, 67); sx += w + 6;
   }
   ctx.textBaseline = 'alphabetic';
 }
 
-function centerText(txt, y, size, color, weight = 900, font = CJK) {
-  ctx.font = `${weight} ${size}px ${font}`; ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(22,19,43,.8)'; ctx.fillText(txt, VW / 2 + 3, y + 3);
+function centerText(txt, y, size, color, weight = 700, font = CJK) {
+  ctx.font = `${weight} ${size}px ${font}`; ctx.textAlign = 'center'; ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(5, size * 0.1); ctx.strokeStyle = '#fffaf4';
+  ctx.strokeText(txt, VW / 2, y);
+  ctx.lineWidth = Math.max(2, size * 0.045); ctx.strokeStyle = 'rgba(92,58,50,.35)';
+  ctx.strokeText(txt, VW / 2, y);
   ctx.fillStyle = color; ctx.fillText(txt, VW / 2, y);
 }
-function dim(a = 0.55) { ctx.fillStyle = `rgba(22,19,43,${a})`; ctx.fillRect(0, 0, VW, VH); }
+function dim(a = 0.45) { ctx.fillStyle = `rgba(72,40,36,${a})`; ctx.fillRect(0, 0, VW, VH); }
+
+function creamChip(txt, y, size = 16, color = '#5c3a32') {
+  ctx.font = `700 ${size}px ${FONT}`;
+  const h = Math.round(size * 1.75);
+  const w = Math.min(VW - 48, ctx.measureText(txt).width + size * 2.2);
+  ctx.fillStyle = 'rgba(255,250,244,.94)';
+  rr(VW / 2 - w / 2, y - h / 2, w, h, h / 2); ctx.fill();
+  ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(txt, VW / 2, y + 1);
+  ctx.textBaseline = 'alphabetic';
+}
 
 function drawTitle() {
-  drawBackground(THEMES.day, S.frame * 0.8);
-  ctx.fillStyle = '#5cc35a'; ctx.fillRect(0, 416, VW, 9); ctx.fillStyle = '#c07a45'; ctx.fillRect(0, 425, VW, 55);
-  // big mascot
-  ctx.save(); ctx.translate(VW / 2, 414 - Math.abs(Math.sin(S.frame * 0.06)) * 24); ctx.scale(2, 2);
-  ctx.fillStyle = '#fffaf2'; ctx.strokeStyle = '#3a2f4f'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.ellipse(0, -14, 15, 14, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#6cc46a'; ctx.save(); ctx.translate(2, -28); ctx.rotate(-0.5); ctx.beginPath(); ctx.ellipse(6, 0, 7, 3.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
-  ctx.fillStyle = '#2b2340'; ctx.beginPath(); ctx.ellipse(-5, -16, 2.2, 3.4, 0, 0, Math.PI * 2); ctx.ellipse(5, -16, 2.2, 3.4, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = 'rgba(255,130,150,.75)'; ctx.beginPath(); ctx.ellipse(-10, -10, 3, 2, 0, 0, Math.PI * 2); ctx.ellipse(10, -10, 3, 2, 0, 0, Math.PI * 2); ctx.fill();
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  drawBackground(THEMES.day, calm ? 40 : S.frame * 0.35);
+  const glow = ctx.createRadialGradient(VW / 2, 300, 10, VW / 2, 300, 210);
+  glow.addColorStop(0, 'rgba(255,255,255,.5)'); glow.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 150, VW, 280);
+  ctx.fillStyle = '#8ed68a'; ctx.beginPath(); ctx.ellipse(VW / 2, 448, 280, 58, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#6fc57a'; ctx.beginPath(); ctx.ellipse(VW / 2, 468, 210, 36, 0, 0, Math.PI * 2); ctx.fill();
+  [[230, 408, '#ff8fa3'], [575, 418, '#ffd36b'], [168, 442, '#fffaf4'], [640, 446, '#ff8fa3']].forEach(([x, y, c]) => {
+    ctx.fillStyle = '#3f9a4a'; ctx.fillRect(x - 1, y + 6, 2, 10);
+    for (let i = 0; i < 5; i++) {
+      const a = -Math.PI / 2 + i * Math.PI * 2 / 5;
+      ctx.fillStyle = c; ctx.beginPath(); ctx.ellipse(x + Math.cos(a) * 5, y + Math.sin(a) * 5, 3.1, 2.1, a, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.fillStyle = '#ffe08a'; ctx.beginPath(); ctx.arc(x, y, 2.3, 0, Math.PI * 2); ctx.fill();
+  });
+  const hop = calm ? 0 : Math.abs(Math.sin(S.frame * 0.07)) * 14;
+  ctx.save();
+  ctx.translate(VW / 2, 400 - hop);
+  ctx.scale(4.05, 4.05);
+  ctx.fillStyle = 'rgba(90,60,30,.14)';
+  ctx.beginPath(); ctx.ellipse(0, 4, 16, 3.4, 0, 0, Math.PI * 2); ctx.fill();
+  paintMochi({ face: 1, wave: !calm, onGround: true, power: false, star: 0, wing: false, dead: false });
   ctx.restore();
-  centerText('麻糬跳跳', 124, 76, '#fffaf2');
-  centerText('跑、跳、頂開星星箱，六關一路闖到熔岩城堡', 168, 20, '#2b2340', 700);
-  if (Math.floor(S.frame / 30) % 2 === 0) centerText('按 Enter / 空白鍵，或點一下畫面開始', 208, 20, '#fff', 700);
+  centerText('麻糬跳跳', 78, 52, '#e25d6a');
+  ctx.font = `700 18px ${FONT}`; ctx.textAlign = 'center'; ctx.fillStyle = '#5c3a32';
+  ctx.fillText('跑、跳、打開星星箱，走到旗子就過關', VW / 2, 112);
+  const blink = calm || Math.floor(S.frame / 28) % 2 === 0;
+  if (blink) creamChip('點一下，或按空白鍵開始', 146);
   const lv = LEVELS[S.sel];
-  centerText(`${S.sel > 0 ? '◀ ' : ''}從第 ${S.sel + 1} 關開始 · ${lv.name}${S.sel < S.unlocked ? ' ▶' : ''}`, 248, 18, '#2b2340', 700);
-  if (S.unlocked > 0) centerText('用 ← → 選擇已解鎖的關卡', 272, 14, '#2b2340', 700);
-  if (S.best) centerText('最高分 ' + pad(S.best, 6), S.unlocked > 0 ? 294 : 272, 15, '#2b2340', 700);
+  const arrows = `${S.sel > 0 ? '◀  ' : ''}第 ${S.sel + 1} 關　${lv.name}${S.sel < S.unlocked ? '  ▶' : ''}`;
+  creamChip(arrows, 430);
+  if (S.unlocked > 0 || S.best) {
+    ctx.font = `700 13px ${FONT}`; ctx.fillStyle = '#2f6a38'; ctx.textAlign = 'center';
+    const hint = [S.unlocked > 0 ? '← → 選擇關卡' : '', S.best ? '最高分 ' + pad(S.best, 6) : ''].filter(Boolean).join('　');
+    ctx.fillText(hint, VW / 2, 462);
+  }
 }
 
 function render() {
@@ -1076,22 +1135,28 @@ function render() {
   drawHUD();
   if (S.state === 'play' && S.banner > 0) {
     ctx.globalAlpha = Math.min(1, S.banner / 25);
-    centerText(`第 ${S.li + 1} 關 · ${LEVELS[S.li].name}`, 200, 40, '#fffaf2');
+    creamChip(`第 ${S.li + 1} 關　${LEVELS[S.li].name}`, 168, 26);
     ctx.globalAlpha = 1;
   }
-  if (S.state === 'clear' && S.clearT > 20) centerText('過關！', 200, 54, '#ffc94a');
-  if (S.state === 'dying' && S.dieT > 40) centerText(S.lives > 0 ? `剩下 ${S.lives} 條命` : '', 220, 34, '#fffaf2');
+  if (S.state === 'clear' && S.clearT > 20) creamChip('過關！', 168, 34, '#c47b12');
+  if (S.state === 'dying' && S.dieT > 40 && S.lives > 0) creamChip(`剩下 ${S.lives} 條命`, 168, 26);
   if (S.state === 'over') {
-    dim(); centerText('遊戲結束', 200, 60, '#ff8f8f');
-    centerText('分數 ' + pad(S.score, 6) + '　最高分 ' + pad(S.best, 6), 250, 20, '#fffaf2', 700);
-    centerText('按 Enter 或點一下畫面回到標題', 290, 18, '#a9a1cc', 700);
+    dim();
+    creamChip('遊戲結束', 190, 34, '#e25d6a');
+    creamChip('分數 ' + pad(S.score, 6) + '　最高分 ' + pad(S.best, 6), 252, 18);
+    creamChip('按 Enter 或點一下畫面回到標題', 308, 16);
   }
   if (S.state === 'win') {
-    dim(); centerText('全部通關！', 200, 60, '#ffc94a');
-    centerText('最終分數 ' + pad(S.score, 6) + '　最高分 ' + pad(S.best, 6), 250, 20, '#fffaf2', 700);
-    centerText('按 Enter 或點一下畫面回到標題', 290, 18, '#a9a1cc', 700);
+    dim();
+    creamChip('全部通關！', 190, 34, '#c47b12');
+    creamChip('最終分數 ' + pad(S.score, 6) + '　最高分 ' + pad(S.best, 6), 252, 18);
+    creamChip('按 Enter 或點一下畫面回到標題', 308, 16);
   }
-  if (S.paused) { dim(0.5); centerText('暫停中', 230, 50, '#fffaf2'); centerText('按 P 或點一下畫面繼續', 270, 18, '#a9a1cc', 700); }
+  if (S.paused) {
+    dim(0.28);
+    creamChip('暫停中', 200, 32, '#e25d6a');
+    creamChip('按 P 或點一下畫面繼續', 262, 16);
+  }
 }
 
 /* ---------------- Loop ---------------- */
